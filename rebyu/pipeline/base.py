@@ -113,7 +113,7 @@ class BaseStep(object):
         self.target = target
         return self
 
-    def set_func(self, func: AnyStr):
+    def set_func(self, func: Any):
         """ Change Function.
 
         :param func: Function Object.
