@@ -5,6 +5,8 @@ from typing import List, Any, AnyStr
 import nltk
 from nltk.corpus import stopwords
 
+from rebyu.util.dependency import nltk_dependency_mgt
+
 NUMBERS_REGEX = r'\d+'
 URLS_REGEX = r'(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,' \
              r'})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,' \
@@ -88,9 +90,13 @@ def remove_stopwords(text: Any, extra: List[Any] = None, language: str = 'englis
     :param language: The language of the text
     :return: text
     """
+
+    nltk_dependency_mgt(required=['punkt', 'stopwords'])
+
+    stop_words = set(stopwords.words(language) + ([] if extra is None else extra))
+    tokens = nltk.word_tokenize(text)
+    filtered_tokens = filter(lambda x: x.lower() not in stop_words, tokens)
+
     if type(text) is str:
-        stop_words = set(stopwords.words(language) + ([] if extra is None else extra))
-        tokens = nltk.word_tokenize(text)
-        filtered_tokens = filter(lambda x: x.lower() not in stop_words, tokens)
         return ' '.join(filtered_tokens)
-    return text
+    return filtered_tokens

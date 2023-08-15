@@ -1,6 +1,8 @@
 from typing import Any
 from collections import Counter
 
+from rebyu.util.dependency import nltk_dependency_mgt
+
 from nltk.lm import Vocabulary
 
 
@@ -65,5 +67,7 @@ def nltk_vocab(tokens: Any, cutoff: int = 2):
     :param cutoff: Minimum occurrence to enter the vocab
     :return: nltk.lm.Vocabulary
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     tokenized_soup = [x for token in tokens for x in token]
     return Vocabulary(tokenized_soup, unk_cutoff=cutoff)

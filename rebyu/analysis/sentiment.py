@@ -1,4 +1,6 @@
-from typing import Any, AnyStr, List
+from typing import Any
+
+from rebyu.util.dependency import nltk_dependency_mgt
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
@@ -10,6 +12,8 @@ def textblob_polarity(series: Any):
     :param series: Any series of data
     :return: List of Dict (TextBlob Polarity)
     """
+    nltk_dependency_mgt(required=['vader_lexicon'])
+
     polarities = []
     for text in series:
         if isinstance(text, TextBlob):

@@ -1,4 +1,5 @@
 from typing import List, Any, AnyStr
+from rebyu.util.dependency import nltk_dependency_mgt
 
 import nltk
 from nltk.stem import PorterStemmer
@@ -56,6 +57,8 @@ def expand_contractions(text: Any):
     :param text: Any string object
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     expanded = []
     if type(text) is str:
         for token in nltk.word_tokenize(text):
@@ -73,6 +76,8 @@ def censor_username(text: Any, censor: Any = '@user'):
     :param censor: Any string object (placeholder)
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     new_text = []
     if type(text) is str:
         for token in nltk.word_tokenize(text):
@@ -93,6 +98,8 @@ def censor_urls(text: Any, censor: Any = 'http'):
     :param censor: Any string object (placeholder)
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     new_text = []
     if type(text) is str:
         for token in nltk.word_tokenize(text):
@@ -150,11 +157,13 @@ def nltk_tokenize(text: Any, language: AnyStr = 'english'):
     :param language: The language of the text
     :return: List of String
     """
-    if type(text) != str:
-        return []
-    return nltk.word_tokenize(
-        text, language=language
-    )
+    nltk_dependency_mgt(required=['punkt'])
+
+    if type(text) is str:
+        return nltk.word_tokenize(
+            text, language=language
+        )
+    return text
 
 
 def nltk_porter_stem(text: Any):
@@ -163,6 +172,8 @@ def nltk_porter_stem(text: Any):
     :param text: Any string object
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     stemmer = PorterStemmer()
     if type(text) is str:
         return ' '.join([stemmer.stem(x) for x in nltk.word_tokenize(text)])
@@ -175,6 +186,8 @@ def nltk_lancaster_stem(text: Any):
     :param text: Any string object
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt'])
+
     stemmer = LancasterStemmer()
     if type(text) is str:
         return ' '.join([stemmer.stem(x) for x in nltk.word_tokenize(text)])
@@ -187,6 +200,8 @@ def nltk_wordnet_lemma(text: Any):
     :param text: Any string object
     :return: text
     """
+    nltk_dependency_mgt(required=['punkt', 'wordnet'])
+
     lemma = WordNetLemmatizer()
     if type(text) is str:
         return ' '.join([
