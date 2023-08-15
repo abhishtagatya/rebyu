@@ -206,6 +206,35 @@ class BasePipeline(object):
         :return: BaseStep
         """
         new_step = step.copy()
+        return self._add_node(new_step)
+
+    def add_function(self,
+                     func: object,
+                     stype: AnyStr,
+                     source: AnyStr,
+                     target: AnyStr,
+                     func_args: Dict = None) -> BaseStep:
+        """ Add a new step to the pipeline via functions
+
+        :param func: Function
+        :param stype: Step Type (BaseStep.STEP_PREPROCESS, BaseStep.STEP_COMPOSE, BaseStep.STEP_ANALYZE).
+        :param source: Source Key (Rebyu.data) Key.
+        :param target: Target Key (Rebyu.data, Rebyu.composition, Rebyu.analysis) Key.
+        :param func_args: Function arguments (Dict)
+        :return: BaseStep
+        """
+        new_step = BaseStep(
+            sid=func.__name__,
+            stype=stype,
+            source=source,
+            target=target,
+            func=func,
+            func_args=func_args
+        )
+
+        return self._add_node(new_step)
+
+    def _add_node(self, new_step: BaseStep) -> BaseStep:
         if self.head is None:
             self.head = new_step
             self.tail = new_step
