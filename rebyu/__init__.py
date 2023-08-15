@@ -2,7 +2,7 @@
 # An automatic Review Analysis Toolkit
 #
 # Authors: Abhishta Gatya <abhishtagatya@yahoo.com>
-# URL: <https://github.com/abhishtagatya/rebyu-ml>
+# URL: <https://github.com/abhishtagatya/rebyu>
 
 
 from rebyu.core import Rebyu

@@ -93,7 +93,7 @@ def remove_stopwords(text: Any, extra: List[Any] = None, language: str = 'englis
 
     nltk_dependency_mgt(required=['punkt', 'stopwords'])
 
-    stop_words = set(stopwords.words(language) + ([] if extra is None else extra))
+    stop_words = set(stopwords.words(language) + (extra or []))
     tokens = nltk.word_tokenize(text)
     filtered_tokens = filter(lambda x: x.lower() not in stop_words, tokens)
 

@@ -28,11 +28,23 @@ def cast_case(text: Any, case: AnyStr = 'LOWER'):
     :param case: LOWER or UPPER
     :return: text
     """
-    if case.upper() == 'LOWER':
-        return text.lower()
-    if case.upper() == 'UPPER':
-        return text.upper()
-    return text
+
+    if type(text) is str:
+        if case.upper() == 'LOWER':
+            return text.lower()
+        if case.upper() == 'UPPER':
+            return text.upper()
+        return text
+
+    new_token = []
+    for token in text:
+        if case.upper() == 'LOWER':
+            new_token.append(token.lower())
+        elif case.upper() == 'UPPER':
+            new_token.append(token.upper())
+        else:
+            new_token.append(token)
+    return new_token
 
 
 def sub_replace(text: Any, sub: Any = None, rep: Any = None):
@@ -48,7 +60,8 @@ def sub_replace(text: Any, sub: Any = None, rep: Any = None):
 
     if type(text) is str:
         return text.replace(sub, rep)
-    return [x.replace(sub, rep) for x in text]
+
+    return [x if x != sub else rep for x in text]
 
 
 def expand_contractions(text: Any):
@@ -59,13 +72,13 @@ def expand_contractions(text: Any):
     """
     nltk_dependency_mgt(required=['punkt'])
 
-    expanded = []
     if type(text) is str:
-        for token in nltk.word_tokenize(text):
-            expanded.append(contractions.fix(token))
-        return ' '.join(expanded)
+        return contractions.fix(text)
+
+    expanded = []
     for token in text:
-        expanded.append(contractions.fix(token))
+        for word in contractions.fix(token).split():
+            expanded.append(word)
     return expanded
 
 
@@ -80,7 +93,7 @@ def censor_username(text: Any, censor: Any = '@user'):
 
     new_text = []
     if type(text) is str:
-        for token in nltk.word_tokenize(text):
+        for token in text.split():
             token = censor if token.startswith('@') and len(token) > 1 else token
             new_text.append(token)
         return ' '.join(new_text)
@@ -102,7 +115,7 @@ def censor_urls(text: Any, censor: Any = 'http'):
 
     new_text = []
     if type(text) is str:
-        for token in nltk.word_tokenize(text):
+        for token in text.split():
             token = censor if token.startswith('http') else token
             new_text.append(token)
         return ' '.join(new_text)
