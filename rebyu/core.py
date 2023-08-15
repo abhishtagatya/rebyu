@@ -15,7 +15,7 @@ class Rebyu(BaseRebyu):
     Rebyu takes the approach of a continuous pipeline operating under 3 categories (preprocess,
     composition, and analysis).
 
-    Read More https://github.com/abhishtagatya/rebyu-ml
+    Read More https://github.com/abhishtagatya/rebyu
     """
 
     def __init__(self,

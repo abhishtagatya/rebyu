@@ -34,8 +34,10 @@ from rebyu.pipeline.step import (
     ANALYZE_TRANSFORMERS_MODEL,
     ANALYZE_TRANSFORMERS_PIPELINE,
 
-    ANALYZE_CARDIFF_NLP_SENTIMENT,
-    ANALYZE_CARDIFF_NLP_EMOTION
+    ANALYZE_CARDIFFNLP_SENTIMENT,
+    ANALYZE_CARDIFFNLP_EMOTION,
+    ANALYZE_FINITEAUTOMATA_SENTIMENT,
+    ANALYZE_FINITEAUTOMATA_EMOTION
 )
 from rebyu.pipeline.pipeline import RebyuPipeline
 
@@ -45,7 +47,7 @@ BLANK_PIPELINE = RebyuPipeline(
 )
 
 TEST_PIPELINE = RebyuPipeline(
-    pid='standard-pipeline',
+    pid='test-pipeline',
     steps=[
         PREP_CAST_NAN,
         PREP_CAST_CASE,
@@ -89,13 +91,24 @@ VADER_PIPELINE = RebyuPipeline(
     ]
 )
 
-CARDIFF_NLP_PIPELINE = RebyuPipeline(
+CARDIFFNLP_PIPELINE = RebyuPipeline(
     pid='cardiff-nlp',
     steps=[
         PREP_CAST_NAN,
         PREP_CENSOR_USERNAME,
         PREP_CENSOR_URLS,
-        ANALYZE_CARDIFF_NLP_SENTIMENT,
-        ANALYZE_CARDIFF_NLP_EMOTION
+        ANALYZE_CARDIFFNLP_SENTIMENT,
+        ANALYZE_CARDIFFNLP_EMOTION
+    ]
+)
+
+FINITEAUTOMATA_PIPELINE = RebyuPipeline(
+    pid='finiteautomata',
+    steps=[
+        PREP_CAST_NAN,
+        PREP_CENSOR_USERNAME,
+        PREP_CENSOR_URLS,
+        ANALYZE_FINITEAUTOMATA_SENTIMENT,
+        ANALYZE_FINITEAUTOMATA_EMOTION
     ]
 )

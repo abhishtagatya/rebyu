@@ -364,7 +364,7 @@ ANALYZE_TRANSFORMERS_PIPELINE = RebyuStep(
 
 See the `transformers_pipeline` documentation."""
 
-ANALYZE_CARDIFF_NLP_SENTIMENT = RebyuStep(
+ANALYZE_CARDIFFNLP_SENTIMENT = RebyuStep(
     sid='cardiffnlp_sentiment',
     stype=BaseStep.STEP_ANALYZE,
     source='text',
@@ -376,11 +376,11 @@ ANALYZE_CARDIFF_NLP_SENTIMENT = RebyuStep(
     }
 )
 """Construct a pipeline from the transformers module specific for Cardiff NLP Sentiment Analysis Tasks.
-Taking 'text' (Rebyu.data) into an analysis in 'transformers_analysis' 
+Taking 'text' (Rebyu.data) into an analysis in 'sentiment' 
 
 See the `transformers_pipeline` documentation."""
 
-ANALYZE_CARDIFF_NLP_EMOTION = RebyuStep(
+ANALYZE_CARDIFFNLP_EMOTION = RebyuStep(
     sid='cardiffnlp_emotion',
     stype=BaseStep.STEP_ANALYZE,
     source='text',
@@ -393,6 +393,39 @@ ANALYZE_CARDIFF_NLP_EMOTION = RebyuStep(
     }
 )
 """Construct a pipeline from the transformers module specific for Cardiff NLP Emotion Analysis Tasks.
-Taking 'text' (Rebyu.data) into an analysis in 'transformers_analysis' 
+Taking 'text' (Rebyu.data) into an analysis in 'emotion' 
+
+See the `transformers_pipeline` documentation."""
+
+ANALYZE_FINITEAUTOMATA_SENTIMENT = RebyuStep(
+    sid='finiteautomata_sentiment',
+    stype=BaseStep.STEP_ANALYZE,
+    source='text',
+    target='sentiment',
+    func=transformers_pipeline,
+    func_args={
+        'task': 'text-classification',
+        'model': 'finiteautomata/bertweet-base-sentiment-analysis'
+    }
+)
+"""Construct a pipeline from the transformers module specific for @finiteautomata Sentiment Analysis Tasks.
+Taking 'text' (Rebyu.data) into an analysis in 'sentiment' 
+
+See the `transformers_pipeline` documentation."""
+
+ANALYZE_FINITEAUTOMATA_EMOTION = RebyuStep(
+    sid='finiteautomata_emotion',
+    stype=BaseStep.STEP_ANALYZE,
+    source='text',
+    target='emotion',
+    func=transformers_pipeline,
+    func_args={
+        'task': 'text-classification',
+        'model': 'finiteautomata/bertweet-base-emotion-analysis',
+        'top_k': 5
+    }
+)
+"""Construct a pipeline from the transformers module specific for @finiteautomata Emotion Analysis Tasks.
+Taking 'text' (Rebyu.data) into an analysis in 'emotion' 
 
 See the `transformers_pipeline` documentation."""
