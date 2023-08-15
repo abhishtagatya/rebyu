@@ -27,6 +27,8 @@ from rebyu.pipeline.step import (
     # NLTK
     PREP_NLTK_TOKENIZE,
     COMPOSE_NLTK_VOCAB,
+    COMPOSE_NLTK_POS_TAG,
+    COMPOSE_NLTK_NER,
     ANALYZE_VADER_POLARITY,
 
     # Transformers
@@ -80,13 +82,15 @@ TEXTBLOB_PIPELINE = RebyuPipeline(
     ]
 )
 
-VADER_PIPELINE = RebyuPipeline(
-    pid='vader-pipeline',
+NLTK_PIPELINE = RebyuPipeline(
+    pid='nltk-pipeline',
     steps=[
         PREP_CAST_NAN,
         PREP_NLTK_TOKENIZE,
-        COMPOSE_COUNTER_VOCAB,
+        COMPOSE_NLTK_VOCAB,
         COMPOSE_COUNTER_CHARVOCAB,
+        COMPOSE_NLTK_POS_TAG,
+        COMPOSE_NLTK_NER,
         ANALYZE_VADER_POLARITY
     ]
 )

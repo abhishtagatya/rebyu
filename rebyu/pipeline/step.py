@@ -39,6 +39,8 @@ from rebyu.compose.vocab import (
     # NLTK
     nltk_vocab
 )
+from rebyu.compose.ner import nltk_extract_ner
+from rebyu.compose.pos import nltk_extract_pos_tags
 from rebyu.analysis.sentiment import (
     # TextBlob
     textblob_polarity,
@@ -316,7 +318,25 @@ COMPOSE_NLTK_VOCAB = RebyuStep(
     target='vocab',
     func=nltk_vocab
 )
-"""Compose a vocabulary 'text' (Rebyu.data) using NLTK's Vocabulary class"""
+"""Compose a vocabulary 'tokens' (Rebyu.data) using NLTK's Vocabulary class"""
+
+COMPOSE_NLTK_POS_TAG = RebyuStep(
+    sid='rb-nltk_pos_tag',
+    stype=BaseStep.STEP_COMPOSE,
+    source='tokens',
+    target='pos_tags',
+    func=nltk_extract_pos_tags
+)
+"""Extract Part-of-Speech Tags from 'tokens' (Rebyu.data) using NLTK's pos_tag"""
+
+COMPOSE_NLTK_NER = RebyuStep(
+    sid='rb-nltk_ner',
+    stype=BaseStep.STEP_COMPOSE,
+    source='tokens',
+    target='ner',
+    func=nltk_extract_ner
+)
+"""Extract Named Entities from 'tokens' (Rebyu.data) using NLTK's ne_chunk"""
 
 ANALYZE_VADER_POLARITY = RebyuStep(
     sid='rb-vader_polarity',

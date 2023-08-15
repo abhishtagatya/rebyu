@@ -8,5 +8,5 @@
 from rebyu.core import Rebyu
 from rebyu.pipeline import step, pipeline
 from rebyu.preprocess import remove, transform
-from rebyu.compose import vocab, embedding
-from rebyu.analysis import sentiment, misc
+from rebyu.compose import vocab
+from rebyu.analysis import sentiment, misc, embedding
