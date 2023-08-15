@@ -134,6 +134,9 @@ def to_textblob(text: Any):
     :param text: Any string object
     :return: TextBlob
     """
+    if isinstance(text, TextBlob):
+        return text
+
     return TextBlob(text)
 
 
@@ -213,7 +216,7 @@ def nltk_wordnet_lemma(text: Any):
     :param text: Any string object
     :return: text
     """
-    nltk_dependency_mgt(required=['punkt', 'wordnet'])
+    nltk_dependency_mgt(required=['punkt', 'wordnet', 'averaged_perceptron_tagger'])
 
     lemma = WordNetLemmatizer()
     if type(text) is str:

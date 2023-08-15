@@ -7,6 +7,15 @@ from rebyu.preprocess.transform import sub_replace
 from rebyu.preprocess.transform import expand_contractions
 from rebyu.preprocess.transform import censor_username
 from rebyu.preprocess.transform import censor_urls
+from rebyu.preprocess.transform import to_textblob
+from rebyu.preprocess.transform import textblob_tokenize
+from rebyu.preprocess.transform import textblob_sentences
+from rebyu.preprocess.transform import nltk_tokenize
+from rebyu.preprocess.transform import nltk_porter_stem
+from rebyu.preprocess.transform import nltk_lancaster_stem
+from rebyu.preprocess.transform import nltk_wordnet_lemma
+
+from textblob import TextBlob
 
 
 @pytest.mark.parametrize('text,expected', [
@@ -84,4 +93,111 @@ def test_censor_username(text: Any, censor: Any, expected: Any):
 ])
 def test_censor_urls(text: Any, censor: Any, expected: Any):
     result = censor_urls(text, censor)
+    assert result == expected
+
+
+# -- TextBlob -- #
+
+@pytest.mark.parametrize('text,expected', [
+    ('', TextBlob('')),
+    ('12131', TextBlob('12131')),
+    ('have you seen my car?', TextBlob('have you seen my car?')),
+    (str(1231141), TextBlob(str(1231141))),
+    (TextBlob('blobbity blob bloble'), TextBlob('blobbity blob bloble')),
+])
+def test_to_textblob(text: Any, expected: Any):
+    result = to_textblob(text)
+    assert isinstance(result, TextBlob)
+    assert result.raw == expected.raw
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', TextBlob('')),
+    ('12131', TextBlob('12131')),
+    ('have you seen my car?', TextBlob('have you seen my car?')),
+    (str(1231141), TextBlob(str(1231141))),
+    (TextBlob('blobbity blob bloble'), TextBlob('blobbity blob bloble')),
+])
+def test_textblob_tokenize(text: Any, expected: Any):
+    result = textblob_tokenize(text)
+    assert result == expected.tokens
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', TextBlob('')),
+    ('12131', TextBlob('12131')),
+    ('have you seen my car?', TextBlob('have you seen my car?')),
+    (str(1231141), TextBlob(str(1231141))),
+    (TextBlob('blobbity blob bloble'), TextBlob('blobbity blob bloble')),
+])
+def test_textblob_sentences(text: Any, expected: Any):
+    result = textblob_sentences(text)
+    assert result == expected.sentences
+
+
+# -- NLTK -- #
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', []),
+    ('mary had a little cow', ['mary', 'had', 'a', 'little', 'cow']),
+    ('@user did you post this?', ['@', 'user', 'did', 'you', 'post', 'this', '?']),
+    ('????', ['?', '?', '?', '?']),
+    ('@user @user @user supercalifragilisticexpialidocious',
+     ['@', 'user', '@', 'user', '@', 'user', 'supercalifragilisticexpialidocious']
+     ),
+])
+def test_nltk_tokenize(text: Any, expected: Any):
+    result = nltk_tokenize(text)
+    assert result == expected
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', ''),
+    ('mary had a little dog', 'mari had a littl dog'),
+    ('rowing bowling swimming winning', 'row bowl swim win'),
+    ('????', '? ? ? ?'),
+    ('the man was running quickly through the snowy scary forest', 'the man wa run quickli through the snowi scari forest'),
+    (''.split(), ''.split()),
+    ('mary had a little dog'.split(), 'mari had a littl dog'.split()),
+    ('rowing bowling swimming winning'.split(), 'row bowl swim win'.split()),
+    ('????'.split(), '????'.split()),
+    ('the man was running quickly through the snowy scary forest'.split(), 'the man wa run quickli through the snowi scari forest'.split()),
+])
+def test_nltk_porter_stem(text: Any, expected: Any):
+    result = nltk_porter_stem(text)
+    assert result == expected
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', ''),
+    ('mary had a little dog', 'mary had a littl dog'),
+    ('rowing bowling swimming winning', 'row bowl swim win'),
+    ('????', '? ? ? ?'),
+    ('the man was running quickly through the snowy scary forest', 'the man was run quick through the snowy scary forest'),
+    (''.split(), ''.split()),
+    ('mary had a little dog'.split(), 'mary had a littl dog'.split()),
+    ('rowing bowling swimming winning'.split(), 'row bowl swim win'.split()),
+    ('????'.split(), '????'.split()),
+    ('the man was running quickly through the snowy scary forest'.split(), 'the man was run quick through the snowy scary forest'.split()),
+])
+def test_nltk_lancaster_stem(text: Any, expected: Any):
+    result = nltk_lancaster_stem(text)
+    assert result == expected
+
+
+@pytest.mark.parametrize('text,expected', [
+    ('', ''),
+    ('mary had a little dog', 'mary have a little dog'),
+    ('rowing bowling swimming winning', 'row bowl swim win'),
+    ('????', '? ? ? ?'),
+    ('the man was running quickly through the snowy scary forest', 'the man be run quickly through the snowy scary forest'),
+    (''.split(), ''.split()),
+    ('mary had a little dog'.split(), 'mary have a little dog'.split()),
+    ('rowing bowling swimming winning'.split(), 'row bowl swim win'.split()),
+    ('????'.split(), '????'.split()),
+    ('the man was running quickly through the snowy scary forest'.split(), 'the man be run quickly through the snowy scary forest'.split()),
+])
+def test_nltk_wordnet_lemma(text: Any, expected: Any):
+    result = nltk_wordnet_lemma(text)
     assert result == expected
