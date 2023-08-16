@@ -6,16 +6,16 @@ from rebyu.util.dependency import nltk_dependency_mgt
 from nltk.lm import Vocabulary
 
 
-def counter_vocab(tokens: Any, cutoff: int = 2):
+def counter_vocab(series: Any, cutoff: int = 2):
     """ Create a Vocabulary using the Counter class
 
-    :param tokens: List of Tokens
+    :param series: Any series of data
     :param cutoff: Minimum occurrence to enter the Vocab
     :return: collections.Counter
     """
     vocab = Counter()
-    for token in tokens:
-        vocab.update(token)
+    for data in series:
+        vocab.update(data)
 
     for word in list(vocab):
         if vocab[word] < cutoff:
@@ -24,17 +24,17 @@ def counter_vocab(tokens: Any, cutoff: int = 2):
     return vocab
 
 
-def counter_character_vocab(tokens: Any, cutoff: int = 0):
+def counter_character_vocab(series: Any, cutoff: int = 0):
     """ Create a Character Vocabulary using the Counter class
 
-    :param tokens: List of Tokens
+    :param series: Any series of data
     :param cutoff: Minimum occurrence to enter the Vocab
     :return: collections.Counter
     """
     vocab = Counter()
-    for token in tokens:
-        for char in token:
-            vocab.update(char)
+    for data in series:         # Per Row
+        for unit in data:       # Per Token
+            vocab.update(unit)  # Individual Token
 
     for char in list(vocab):
         if vocab[char] < cutoff:
@@ -43,20 +43,17 @@ def counter_character_vocab(tokens: Any, cutoff: int = 0):
     return vocab
 
 
-def set_character_vocab(tokens: Any, sort: bool = False):
+def set_character_vocab(series: Any):
     """ Create a Character Vocabulary using a Set
 
-    :param tokens: List of Tokens
-    :param sort: Determines whether the set should be sorted
+    :param series: Any series of data
     :return: set
     """
     vocab = set()
-    for token in tokens:
-        for char in token:
-            vocab.update(set(char))
+    for data in series:              # Per Row
+        for unit in data:            # Per Token
+            vocab.update(set(unit))  # Individual Token
 
-    if sort:
-        return sorted(vocab)
     return vocab
 
 
