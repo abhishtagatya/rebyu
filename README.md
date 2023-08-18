@@ -23,7 +23,7 @@ pip install -U rebyu
 
 ### Concept
 
-![Rebyu Concept](docs/images/Rebyu_Concept_sm.png)
+![Rebyu Concept](https://raw.githubusercontent.com/abhishtagatya/rebyu/master/docs/images/Rebyu_Concept_sm.png)
 
 
 The essence of Rebyu for Review Analysis lies in its structured 

@@ -6,8 +6,8 @@ project = 'Rebyu'
 copyright = '2023, Abhishta'
 author = 'Abhishta'
 
-release = '0.1.0'
-version = '0.1.0'
+release = '0.1.1'
+version = '0.1.1'
 
 # -- General configuration
 
