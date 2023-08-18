@@ -39,7 +39,7 @@ analyses and accelerating the generation of insights.
 
 ### Documentation
 
-| Documentation      | Description | Test Text     |
+| Documentation      | Description |      |
 | :---:        |    :----:   |          :---: |
 | Read the Docs      | Official Documentation       | [Link]()   |
 | Replit Example   | Multiple examples to run on Replit        | [Link]()      |
