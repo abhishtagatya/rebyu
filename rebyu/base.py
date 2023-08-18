@@ -1,8 +1,6 @@
-import time
+import pathlib
+from typing import Any, Dict
 
-from typing import Any, Dict, List
-
-import numpy as np
 import pandas as pd
 
 from rebyu.pipeline.pipeline import BasePipeline
@@ -36,6 +34,14 @@ class BaseRebyu(object):
         self.analysis = {}
 
         self.verbose = verbose
+
+        if isinstance(data, str):
+            _suffix = pathlib.Path(data).suffix
+
+            if _suffix == '.csv':
+                self.data = pd.read_csv(data)
+            if _suffix == '.json':
+                self.data = pd.read_json(data)
 
         if isinstance(data, pd.Series):
             self.data = self.data.to_frame()
