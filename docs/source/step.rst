@@ -196,7 +196,7 @@ Extract Named Entity from Tokens using NLTK NE Chunks. ``source: tokens``, ``tar
 
    print(rb.info())
 
-.. autofunction:: rebyu.compose.pos.nltk_extract_ner
+.. autofunction:: rebyu.compose.ner.nltk_extract_ner
 
 .. _ANALYZE_TEXTBLOB_POLARITY:
 

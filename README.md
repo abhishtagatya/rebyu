@@ -38,7 +38,7 @@ analyses and accelerating the generation of insights.
 
 | Documentation      | Description |      |
 | :---:        |    :----:   |          :---: |
-| Read the Docs      | Official Documentation       | [Link]()   |
+| Read the Docs      | Official Documentation       | [Link](https://rebyu.readthedocs.io/)   |
 | Replit Example   | Multiple examples to run on Replit        | [Link]()      |
 
 
