@@ -6,7 +6,7 @@ transformers, and diverse analyses like sentiment, topics, emotion,
 and named-entities. It plans to be language-flexible, highly scalable,
 and offers both preset pipelines and customizable options.
 
-Version 0.1.0 (Unreleased)
+Version 0.1.3 (Released)
 
 .. note::
 
