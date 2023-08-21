@@ -33,6 +33,12 @@ class BaseRebyu(object):
 
         self.verbose = verbose
 
+        if isinstance(data, pd.DataFrame):
+            self.data = data.copy()
+
+        if isinstance(data, pd.Series):
+            self.data = self.data.to_frame().copy()
+
         if isinstance(data, str):
             _suffix = pathlib.Path(data).suffix
 
@@ -40,9 +46,6 @@ class BaseRebyu(object):
                 self.data = pd.read_csv(data)
             if _suffix == '.json':
                 self.data = pd.read_json(data)
-
-        if isinstance(data, pd.Series):
-            self.data = self.data.to_frame()
 
         if isinstance(pipeline, BasePipeline):
             self.pipeline = pipeline
