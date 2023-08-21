@@ -12,7 +12,7 @@ def textblob_polarity(series: Any):
     :param series: Any series of data
     :return: List of Dict (TextBlob Polarity)
     """
-    nltk_dependency_mgt(required=['vader_lexicon'])
+    nltk_dependency_mgt(required=['punkt'])
 
     polarities = []
     for text in series:
