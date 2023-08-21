@@ -67,8 +67,11 @@ TEXTBLOB_PIPELINE = RebyuPipeline(
     pid='textblob-pipeline',
     steps=[
         PREP_CAST_NAN,
+        PREP_REMOVE_PUNCTUATIONS,
+        PREP_SENTENCE_LENGTH,
         PREP_TEXTBLOB,
         PREP_TEXTBLOB_TOKENIZE,
+        PREP_WORD_COUNT,
         COMPOSE_COUNTER_VOCAB,
         COMPOSE_COUNTER_CHARVOCAB,
         ANALYZE_TEXTBLOB_POLARITY
@@ -79,7 +82,10 @@ NLTK_PIPELINE = RebyuPipeline(
     pid='nltk-pipeline',
     steps=[
         PREP_CAST_NAN,
+        PREP_REMOVE_PUNCTUATIONS,
+        PREP_SENTENCE_LENGTH,
         PREP_NLTK_TOKENIZE,
+        PREP_WORD_COUNT,
         COMPOSE_NLTK_VOCAB,
         COMPOSE_COUNTER_CHARVOCAB,
         COMPOSE_NLTK_POS_TAG,
