@@ -32,9 +32,9 @@ def test_remove_urls(text: Any, expected: Any):
 
 
 @pytest.mark.parametrize('text,expected', [
-    ('https://google.com', 'https   google com'),
-    ('I\'d like to call you again. Please!', 'I d like to call you again  Please '),
-    ('Did you go to www.google.com', 'Did you go to www google com'),
+    ('https://google.com', 'httpsgooglecom'),
+    ('I\'d like to call you again. Please!', 'Id like to call you again Please'),
+    ('Did you go to www.google.com', 'Did you go to wwwgooglecom'),
     ('Never gonna give you up', 'Never gonna give you up')
 ])
 def test_remove_punctuations(text: Any, expected: Any):

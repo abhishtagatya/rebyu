@@ -53,7 +53,7 @@ def remove_punctuations(text: Any):
     :return: text
     """
     if type(text) is str:
-        return text.translate(str.maketrans(string.punctuation, ' ' * len(string.punctuation)))
+        return text.translate(str.maketrans('', '', string.punctuation))
     return text
 
 
