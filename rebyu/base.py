@@ -1,5 +1,5 @@
 import pathlib
-from typing import Any, Dict
+from typing import Any, Dict, AnyStr
 
 import pandas as pd
 
@@ -19,8 +19,6 @@ class BaseRebyu(object):
         data (pd.DataFrame): The input dataset, converted to a DataFrame.
         pipeline (BasePipeline): A customizable pipeline for data preprocessing, composition,
             and analysis.
-        composition (Dict): Results from composition-based operations.
-        analysis (Dict): Results from analysis-based operations.
         verbose (bool): Determines whether verbose output is enabled.
     """
 
@@ -30,8 +28,8 @@ class BaseRebyu(object):
                  verbose: bool = True):
         self.data = data
         self.pipeline = None
-        self.composition = {}
-        self.analysis = {}
+        self._composition = {}
+        self._analysis = {}
 
         self.verbose = verbose
 
@@ -48,6 +46,7 @@ class BaseRebyu(object):
 
         if isinstance(pipeline, BasePipeline):
             self.pipeline = pipeline
+            self.pipeline.reset()
 
     def step(self, verbose: bool = False):
         """ Take a step of a series of process within the pipeline.
@@ -60,8 +59,8 @@ class BaseRebyu(object):
 
         self.pipeline.step(
             data=self.data,
-            composition=self.composition,
-            analysis=self.analysis,
+            composition=self._composition,
+            analysis=self._analysis,
             verbose=verbose
         )
 
@@ -76,10 +75,16 @@ class BaseRebyu(object):
 
         self.pipeline.run(
             data=self.data,
-            composition=self.composition,
-            analysis=self.analysis,
+            composition=self._composition,
+            analysis=self._analysis,
             verbose=verbose
         )
+
+    def composition(self, key: AnyStr, default: Any = None) -> Any:
+        return self._composition.get(key, default)
+
+    def analysis(self, key: AnyStr, default: Any = None) -> Any:
+        return self._analysis.get(key, default)
 
     def info(self):
         """ Get the information of the class.
@@ -91,15 +96,15 @@ class BaseRebyu(object):
             out_text += f' -{col}: {self.data[col].dtype}\n'
 
         out_text += '\nCOMPOSITION:\n'
-        if len(self.composition):
-            for kc, vc in self.composition.items():
+        if len(self._composition):
+            for kc, vc in self._composition.items():
                 out_text += f' -{kc}: {type(vc)}\n'
         else:
             out_text += 'Empty\n'
 
         out_text += '\nANALYSIS:\n'
-        if len(self.analysis):
-            for kc, vc in self.analysis.items():
+        if len(self._analysis):
+            for kc, vc in self._analysis.items():
                 out_text += f' -{kc}: {type(vc)}\n'
         else:
             out_text += 'Empty\n'
@@ -115,7 +120,3 @@ class BaseRebyu(object):
             out_text += f' -{step}\n'
 
         return out_text
-
-
-
-
