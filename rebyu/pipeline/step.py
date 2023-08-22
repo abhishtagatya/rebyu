@@ -2,13 +2,15 @@ from typing import Any, AnyStr, Dict
 
 from rebyu.pipeline.base import BaseStep
 from rebyu.preprocess.remove import (
+    remove_patterns,
     remove_numbers,
     remove_punctuations,
     remove_whitespaces,
     remove_specifics,
     remove_urls,
     remove_emojis,
-    remove_stopwords
+    remove_stopwords,
+    trim_text
 )
 from rebyu.preprocess.transform import (
     cast_nan_str,
@@ -99,6 +101,24 @@ PREP_CAST_CASE = RebyuStep(
     func=cast_case
 )
 """Switch case the data in 'text' (Rebyu.data) to lower or upper case."""
+
+PREP_TRIM_TEXT = RebyuStep(
+    sid='rb-trim_text',
+    stype=BaseStep.STEP_PREPROCESS,
+    source='text',
+    target='text',
+    func=trim_text
+)
+"""Trim the text from 'text' to a given length"""
+
+PREP_REMOVE_PATTERNS = RebyuStep(
+    sid='rb-remove_patterns',
+    stype=RebyuStep.STEP_PREPROCESS,
+    source='text',
+    target='text',
+    func=remove_patterns
+)
+"""Remove numerical data in 'text' (Rebyu.data)"""
 
 PREP_REMOVE_NUMBERS = RebyuStep(
     sid='rb-remove_numbers',

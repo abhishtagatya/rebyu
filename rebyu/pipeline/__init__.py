@@ -3,6 +3,8 @@ from rebyu.pipeline.step import (
     RebyuStep,
     PREP_CAST_NAN,
     PREP_CAST_CASE,
+    PREP_TRIM_TEXT,
+    PREP_REMOVE_PATTERNS,
     PREP_REMOVE_NUMBERS,
     PREP_REMOVE_PUNCTUATIONS,
     PREP_REMOVE_WHITESPACES,
@@ -124,6 +126,7 @@ CARDIFFNLP_PIPELINE = RebyuPipeline(
     pid='cardiff-nlp',
     steps=[
         PREP_CAST_NAN,
+        PREP_TRIM_TEXT,
         PREP_CENSOR_USERNAME,
         PREP_CENSOR_URLS,
         PREP_REMOVE_EMOJIS,
@@ -136,6 +139,7 @@ FINITEAUTOMATA_PIPELINE = RebyuPipeline(
     pid='finiteautomata',
     steps=[
         PREP_CAST_NAN,
+        PREP_TRIM_TEXT,
         PREP_CENSOR_USERNAME,
         PREP_CENSOR_URLS,
         ANALYZE_FINITEAUTOMATA_SENTIMENT,

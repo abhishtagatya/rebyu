@@ -107,6 +107,19 @@ def remove_specifics(text: Any, sub: Any):
     return text
 
 
+def trim_text(text: Any, length: int = 500, pos: AnyStr = 'LEFT'):
+    """ Trim the Text by Length
+
+    :param text: Any string object
+    :param length: Max. String length
+    :param pos: Trim Position (LEFT or RIGHT)
+    :return: text
+    """
+    if pos == 'LEFT':
+        return text[:length]
+    return text[length:]
+
+
 # -- NLTK -- #
 
 def remove_stopwords(text: Any, extra: List[Any] = None, language: str = 'english'):

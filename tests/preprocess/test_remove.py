@@ -1,6 +1,7 @@
 import pytest
 from typing import Any
 
+from rebyu.preprocess.remove import trim_text
 from rebyu.preprocess.remove import remove_numbers
 from rebyu.preprocess.remove import remove_urls
 from rebyu.preprocess.remove import remove_punctuations
@@ -8,6 +9,19 @@ from rebyu.preprocess.remove import remove_whitespaces
 from rebyu.preprocess.remove import remove_specifics
 from rebyu.preprocess.remove import remove_emojis
 from rebyu.preprocess.remove import remove_stopwords
+
+
+@pytest.mark.parametrize('text,length,expected', [
+    ('18a18' * 200, 200, ('18a18' * 200)[:200]),
+    ('trim' * 4, 4, 'trim'),
+    ('', 1, ''),
+    ('a'*20, 80, 'a'*20),
+    ('abc'*10, 2, 'ab')
+])
+def test_remove_numbers(text: Any, length: Any, expected: Any):
+    result = trim_text(text, length=length)
+    assert len(result) == length
+    assert result == expected
 
 
 @pytest.mark.parametrize('text,expected', [
@@ -75,6 +89,7 @@ def test_remove_specifics(text: Any, sub: Any, expected: Any):
 def test_remove_emojis(text: Any, expected: Any):
     result = remove_emojis(text)
     assert result == expected
+
 
 @pytest.mark.parametrize('text,extra,expected', [
     ('I just ate a sandwich', None, 'ate sandwich'),
