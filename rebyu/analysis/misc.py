@@ -40,9 +40,6 @@ def transformers_pipeline(
     """
     pipe_task = pipeline(task=task, model=model, **kwargs)
 
-    if isinstance(series, pd.Series):
-        return pipe_task(series.tolist())
-
     outputs = []
     for data in series:
         outputs.append(pipe_task(data)[0])
