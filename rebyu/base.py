@@ -84,10 +84,31 @@ class BaseRebyu(object):
         )
 
     def composition(self, key: AnyStr, default: Any = None) -> Any:
+        """ Get values from 'composition' step results
+
+        :param key: Target Key of Composition
+        :param default: (Optional) Default value if not found
+        :return: Any
+        """
         return self._composition.get(key, default)
 
     def analysis(self, key: AnyStr, default: Any = None) -> Any:
+        """ Get values from 'analysis' step results
+
+        :param key: Target Key of Analysis
+        :param default: (Optional) Default value if not found
+        :return: Any
+        """
         return self._analysis.get(key, default)
+
+    def reset(self):
+        """ Reset the results of Rebyu object. (Composition Result, Analysis Result, and Pipeline State)
+
+        :return:
+        """
+        self._composition.clear()
+        self._analysis.clear()
+        self.pipeline.reset()
 
     def info(self):
         """ Get the information of the class.
