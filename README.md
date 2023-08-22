@@ -13,7 +13,7 @@ print(rb.data['vader_polarity'])
 
 Rebyu, a Review Analysis Library equipped with text processing, transformers, and diverse analyses like sentiment, topics, emotion, and named-entities. It plans to be language-flexible, highly scalable, and offers both preset pipelines and customizable options.
 
-**Version 0.1.4 (Released)** - [Change Log](CHANGELOG.md)
+**Version 0.1.5 (Released)** - [Change Log](CHANGELOG.md)
 
 ```bash
 pip install -U rebyu
