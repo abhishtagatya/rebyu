@@ -299,6 +299,17 @@ class BasePipeline(object):
         self.curr_idx = 0
         return
 
+    def clear(self):
+        """ Clear the entire pipeline and reset
+
+        :return:
+        """
+        while self.pop():
+            pass
+
+        self.reset()
+        return
+
     def __len__(self):
         return self.length
 
