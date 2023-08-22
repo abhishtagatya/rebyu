@@ -7,6 +7,7 @@ from rebyu.pipeline.step import (
     PREP_REMOVE_PUNCTUATIONS,
     PREP_REMOVE_WHITESPACES,
     PREP_REMOVE_SPECIFICS,
+    PREP_REMOVE_EMOJIS,
     PREP_REMOVE_STOPWORDS,
     PREP_REPLACE_WORD,
     PREP_CENSOR_USERNAME,
@@ -77,6 +78,18 @@ TEXTBLOB_PIPELINE = RebyuPipeline(
         ANALYZE_TEXTBLOB_POLARITY
     ]
 )
+"""TextBlob-based Pipeline for Composition Extraction and Sentiment Analysis\n
+
+1. PREP_CASE_NAN - Casting Non-Str to Empty String\n
+2. PREP_REMOVE_PUNCTUATIONS - Remove Punctuations
+3. PREP_SENTENCE_LENGTH - Get the Length of Text
+4. PREP_TEXTBLOB - Transform to TextBlob Object
+5. PREP_TEXTBLOB_TOKENIZE - Tokenize using TextBlob.tokens
+6. PREP_WORD_COUNT - Get the Total Word Count
+7. COMPOSE_COUNTER_VOCAB - Create a Counter Vocabulary
+8. COMPOSE_COUNTER_CHARVOCAB - Create a Counter Character Vocabulary
+9. ANALYZE_TEXTBLOB_POLARITY - Get the Polarity of the Text
+"""
 
 NLTK_PIPELINE = RebyuPipeline(
     pid='nltk-pipeline',
@@ -93,6 +106,19 @@ NLTK_PIPELINE = RebyuPipeline(
         ANALYZE_VADER_POLARITY
     ]
 )
+"""NLTK-based Pipeline for Composition Extraction and Sentiment Analysis\n
+
+1. PREP_CASE_NAN - Casting Non-Str to Empty String\n
+2. PREP_REMOVE_PUNCTUATIONS - Remove Punctuations
+3. PREP_SENTENCE_LENGTH - Get the Length of Text
+4. PREP_NLTK_TOKENIZE - Tokenize using NLTK
+5. PREP_WORD_COUNT - Get the Total Word Count
+6. COMPOSE_NLTK_VOCAB - Create an NLTK Vocabulary
+7. COMPOSE_COUNTER_CHARVOCAB - Create a Counter Character Vocabulary
+8. COMPOSE_NLTK_POS_TAG - Extract Part-of-Speech Tags
+9. COMPOSE_NLTK_NER - Extract Named-Entities
+10. ANALYZE_VADER_POLARITY - Get the Polarity of the Text
+"""
 
 CARDIFFNLP_PIPELINE = RebyuPipeline(
     pid='cardiff-nlp',
@@ -100,6 +126,7 @@ CARDIFFNLP_PIPELINE = RebyuPipeline(
         PREP_CAST_NAN,
         PREP_CENSOR_USERNAME,
         PREP_CENSOR_URLS,
+        PREP_REMOVE_EMOJIS,
         ANALYZE_CARDIFFNLP_SENTIMENT,
         ANALYZE_CARDIFFNLP_EMOTION
     ]

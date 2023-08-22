@@ -6,6 +6,7 @@ from rebyu.preprocess.remove import remove_urls
 from rebyu.preprocess.remove import remove_punctuations
 from rebyu.preprocess.remove import remove_whitespaces
 from rebyu.preprocess.remove import remove_specifics
+from rebyu.preprocess.remove import remove_emojis
 from rebyu.preprocess.remove import remove_stopwords
 
 
@@ -63,6 +64,17 @@ def test_remove_specifics(text: Any, sub: Any, expected: Any):
     result = remove_specifics(text, sub)
     assert result == expected
 
+
+@pytest.mark.parametrize('text,expected', [
+    ('❤️❤️❤️❤️love', 'love'),
+    ('good👍👍job', 'goodjob'),
+    ('hello, world', 'hello, world'),
+    ('𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗', '𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗'),
+    ('𝕤𝕔𝕣𝕒𝕥𝕔𝕙✔️👊', '𝕤𝕔𝕣𝕒𝕥𝕔𝕙')
+])
+def test_remove_emojis(text: Any, expected: Any):
+    result = remove_emojis(text)
+    assert result == expected
 
 @pytest.mark.parametrize('text,extra,expected', [
     ('I just ate a sandwich', None, 'ate sandwich'),

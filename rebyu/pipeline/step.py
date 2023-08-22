@@ -7,6 +7,7 @@ from rebyu.preprocess.remove import (
     remove_whitespaces,
     remove_specifics,
     remove_urls,
+    remove_emojis,
     remove_stopwords
 )
 from rebyu.preprocess.transform import (
@@ -143,6 +144,15 @@ PREP_REMOVE_URLS = RebyuStep(
     func=remove_urls
 )
 """Remove urls in 'text' (Rebyu.data)"""
+
+PREP_REMOVE_EMOJIS = RebyuStep(
+    sid='rb-remove_emojis',
+    stype=RebyuStep.STEP_PREPROCESS,
+    source='text',
+    target='text',
+    func=remove_emojis
+)
+"""Remove emojis in 'text' (Rebyu.data)"""
 
 PREP_REMOVE_STOPWORDS = RebyuStep(
     sid='rb-remove_stopwords',
@@ -391,7 +401,7 @@ ANALYZE_CARDIFFNLP_SENTIMENT = RebyuStep(
     target='sentiment',
     func=transformers_pipeline,
     func_args={
-        'task': 'sentiment-analysis',
+        'task': 'text-classification',
         'model': 'cardiffnlp/twitter-roberta-base-sentiment-latest'
     }
 )
